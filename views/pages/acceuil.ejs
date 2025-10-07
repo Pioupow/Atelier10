@@ -30,6 +30,17 @@
           var seconde = now.getSeconds();
           var heureClient = annee + '-' + mois + '-' + jour + ' ' + heure + ':' + minute + ':' + seconde;
           $('#heureClient').text('Heure de lancement du client : ' + heureClient);
+
+          function updateTime() {
+            now = new Date();
+            var timestring = now.toLocaleTimeString();
+            $('#heureLive').text('Heure actuelle : ' + timestring);
+          }
+
+          updateTime();
+
+          setInterval(updateTime, 1000); // Met à jour chaque seconde
+
         });
       </script>
 
@@ -41,6 +52,7 @@
       <p>Heure de lancement du serveur : <%= heuredeLancement %>
       </p>
       <p id="heureClient"></p>
+      <p id="heureLive"></p>
       <%- include('../partials/footer') %>
   </body>
 
