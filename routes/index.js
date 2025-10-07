@@ -10,8 +10,11 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('pages/acceuil', { title: 'Acceuil' });
+router.get('/', function (req, res, next) {
+  res.render('pages/acceuil', {
+    title: 'Acceuil',
+    heuredeLancement: req.heuredeLancement
+  });
 });
 
 module.exports = router;    

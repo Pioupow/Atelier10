@@ -13,13 +13,34 @@
     <%- include('../partials/header') %>
       <script src="/socket.io/socket.io.js"></script>
       <script>
-        var socket = io.connect('http://localhost:8080');
+        var socket = io(); // Connexion au serveur Socket.io
+        socket.on('message', function (message) {
+          $('#con').text('Le serveur a un message pour vous : ' + message);
+        });
       </script>
+
+      <script>
+        $(document).ready(function () {
+          var now = new Date();
+          var annee = now.getFullYear();
+          var mois = now.getMonth() + 1;
+          var jour = now.getDate();
+          var heure = now.getHours();
+          var minute = now.getMinutes();
+          var seconde = now.getSeconds();
+          var heureClient = annee + '-' + mois + '-' + jour + ' ' + heure + ':' + minute + ':' + seconde;
+          $('#heureClient').text('Heure de lancement du client : ' + heureClient);
+        });
+      </script>
+
       <main style="padding: 20px;">
         <h2>Bienvenue sur la page d'accueil</h2>
         <p>Ceci est un exemple de page d'accueil pour un site web utilisant une architecture RESTful avec Express.</p>
       </main>
-
+      <p id="con"></p>
+      <p>Heure de lancement du serveur : <%= heuredeLancement %>
+      </p>
+      <p id="heureClient"></p>
       <%- include('../partials/footer') %>
   </body>
 
