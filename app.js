@@ -45,6 +45,18 @@ io.on('connection', function (socket) {
   connectionCount++;
   console.log(`Un client est connecté (#${connectionCount})`);
   socket.emit('message', `Vous êtes bien connecté ! Vous êtes le client numéro ${connectionCount}.`);
+
+  // Réception du message du client (heure d'alarme)
+  socket.on('message', function (message) {
+    console.log('Un client me parle ! Il me dit : ' + message);
+
+    // Récupère l'heure et la minute
+    if (message) {
+      let [heureAlarme, minAlarme] = message.split(':');
+      // Envoie à TOUS les clients (y compris celui qui a envoyé)
+      io.emit('message', `Nouvelle heure d'alarme : ${heureAlarme}:${minAlarme}`);
+    }
+  });
 });
 
 // gestion des erreurs

@@ -37,11 +37,48 @@
             $('#heureLive').text('Heure actuelle : ' + timestring);
           }
 
+          $('#poke').click(function () {
+            socket.emit('message', $('#alarme').val());
+          });
+
+          // Stocke l'heure d'alarme reçue du serveur
+          let heureAlarme = null;
+          let minAlarme = null;
+
+          socket.on('message', function (message) {
+              console.log('Le serveur a un message pour vous : ' + message);
+
+            // Si le message contient "Nouvelle heure d'alarme"
+            if (message.startsWith('Nouvelle heure d\'alarme')) {
+              // Récupère l'heure et la minute
+              let parts = message.split(':');
+              heureAlarme = parseInt(parts[1]);
+              minAlarme = parseInt(parts[2]);
+            }
+          });
+
+          function updateTime() {
+            let now = new Date();
+            let timestring = now.toLocaleTimeString();
+            $('#heureLive').text('Heure actuelle : ' + timestring);
+
+            // Vérifie si l'heure actuelle correspond à l'alarme
+            if (heureAlarme !== null && minAlarme !== null) {
+              if (now.getHours() === heureAlarme && now.getMinutes() === minAlarme) {
+                $('#alarr').text('ALARME ! Il est ' + timestring);
+              }
+            }
+          }
+
           updateTime();
 
           setInterval(updateTime, 1000); // Met à jour chaque seconde
 
         });
+      </script>
+
+      <script>
+
       </script>
 
       <main style="padding: 20px;">
@@ -53,6 +90,11 @@
       </p>
       <p id="heureClient"></p>
       <p id="heureLive"></p>
+      <p id="alarr"></p>
+      <form onsubmit="return false;">
+        <input type="time" id="alarme" />
+        <input type="submit" value="Enregistrer" id="poke" />
+      </form>
       <%- include('../partials/footer') %>
   </body>
 
