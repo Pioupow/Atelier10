@@ -1,1 +1,22 @@
- 
+<!--/**
+  * @file     footer.ejs
+  * @author   Nathan Levasseur
+  * @version  1
+  * @date     24/09/2025
+  * @brief    code pour le footer de base des pages
+  */-->
+
+<footer class="bg-dark text-white py-4 mt-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-0">&copy; <%= new Date().getFullYear() %> - Atelier </p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <a href="/contact" class="text-white me-3">Contact</a>
+        <a href="/mentions" class="text-white me-3">Mentions légales</a>
+        <a href="/apropos" class="text-white">À propos</a>
+      </div>
+    </div>
+  </div>
+</footer>

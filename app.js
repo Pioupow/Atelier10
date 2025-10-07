@@ -5,7 +5,7 @@
   * @date     25/09/2025
   * @brief    Première ébauche d'une architecture générique "RESTful" avec Express
   */
-const PORT = 3000;
+const PORT = 8080;
 var express = require('express');
 var app = express();
 
@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(require('./routes/index'));
-app.use('/contacts', require('./routes/contacts'));
 app.use(function (req, res, next) {
     res.status(404)
     res.render("pages/404.ejs");
@@ -25,6 +24,13 @@ app.use(function (req, res, next) {
 
 let server = app.listen(PORT, function(){
     console.log('Server is running on port ' + PORT);
+});
+
+// Chargement de socket.io (place-le ici)
+var io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  console.log('Un client est connecté');
 });
 
 // gestion des erreurs

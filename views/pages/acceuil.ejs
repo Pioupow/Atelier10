@@ -7,18 +7,20 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-<%- include ('partials/head', { pageTitle: 'Accueil' }) %>
+<%- include('../partials/head', { pageTitle: 'Accueil' }) %>
 
-    <body>
-        body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
-        <%- include ('partials/header') %>
+  <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+    <%- include('../partials/header') %>
+      <script src="/socket.io/socket.io.js"></script>
+      <script>
+        var socket = io.connect('http://localhost:8080');
+      </script>
+      <main style="padding: 20px;">
+        <h2>Bienvenue sur la page d'accueil</h2>
+        <p>Ceci est un exemple de page d'accueil pour un site web utilisant une architecture RESTful avec Express.</p>
+      </main>
 
-            <main style="padding: 20px;">
-                <h2>Bienvenue sur la page d'accueil</h2>
-                <p>Ceci est un exemple de page d'accueil pour un site web utilisant une architecture RESTful avec
-                    Express.</p>
-            </main>
-    </body>
-    <%- include ('partials/footer') %>
+      <%- include('../partials/footer') %>
+  </body>
 
 </html>
